@@ -22,22 +22,23 @@
 <div class="navbar-menu-wrapper d-flex align-items-top">
     <ul class="navbar-nav">
     <li class="nav-item fw-semibold d-none d-lg-block ms-0">
-        <h1 class="welcome-text">Selamat Pagi, <span class="text-black fw-bold">Suhaefi Fauzian</span></h1>
+        <h1 class="welcome-text"><span id="greeting">...</span>, <span class="text-black fw-bold">{{ session('user_name') }}</span></h1>
         <h3 class="welcome-sub-text">Semoga aktivitasmu berjalan lancar dan menyenangkan</h3>
     </li>
     </ul>
     <ul class="navbar-nav ms-auto">
     <li class="nav-item dropdown d-none d-lg-block user-dropdown">
         <a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-        <img class="img-xs rounded-circle" src="../assets/images/faces/face8.jpg" alt="Profile image"> </a>
+        <img class="img-xs rounded-circle" src="{{ session('user_img') }}" alt="Profile image"> </a>
         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
         <div class="dropdown-header text-center">
-            <img class="img-md rounded-circle" src="../assets/images/faces/face8.jpg" alt="Profile image">
+            <div class="mx-auto mt-3" style="width: 75px; height: 75px">
+                <img class="img-md rounded-circle" src="{{ session('user_img') }}" alt="Profile image" style="object-fit:cover; width: 100%; height: 100%;">
+            </div>
             <p class="mb-1 mt-3 fw-semibold">Suhaefi Fauzian</p>
-            <p class="fw-light text-muted mb-0">suhaefi21@gmail.com</p>
         </div>
-        <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> My Profile</a>
-        <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>Sign Out</a>
+        <a class="dropdown-item" href="{{ route('profile') }}"><i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> My Profile</a>
+        <button class="dropdown-item" id="signOutButton"><i class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>Sign Out</button>
         </div>
     </li>
     </ul>

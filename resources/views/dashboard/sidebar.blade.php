@@ -16,24 +16,34 @@
         <div class="collapse" id="auth">
             <ul class="nav flex-column sub-menu">
                 <li class="nav-item">
-                    <a class="nav-link" href="#"> Dirilis</a>
+                    <a class="nav-link" href="{{ route('articles.publish') }}"> Dirilis</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"> Disimpan</a>
+                    <a class="nav-link" href="{{ route('articles.draft') }}"> Disimpan</a>
                 </li>
             </ul>
         </div>
     </li>
+
+    @if (session('user_admin'))
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('categories') }}">
+                <i class="menu-icon mdi mdi-shape"></i>
+                <span class="menu-title">Kategori</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('users') }}">
+                <i class="menu-icon mdi mdi-account-group"></i>
+                <span class="menu-title">Pengguna</span>
+            </a>
+        </li>
+    @endif
+
     <li class="nav-item">
-        <a class="nav-link" href="#">
-            <i class="menu-icon mdi mdi-shape"></i>
-            <span class="menu-title">Kategori</span>
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#">
-            <i class="menu-icon mdi mdi-account-group"></i>
-            <span class="menu-title">Pengguna</span>
+        <a class="nav-link" href="{{ route('profile') }}">
+            <i class="menu-icon mdi mdi-account"></i>
+            <span class="menu-title">Profil</span>
         </a>
     </li>
 </ul>

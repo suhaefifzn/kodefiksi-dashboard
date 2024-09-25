@@ -122,5 +122,8 @@ return [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
-
+    'my_config' => [
+        'api_url' => env('API_URL'),
+        'client_token' => env('CLIENT_TOKEN', '')
+    ]
 ];
