@@ -16,6 +16,7 @@
     <link rel="stylesheet" type="text/css" href="/assets/js/select.dataTables.min.css">->
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="shortcut icon" href="/assets/images/logo.png" />
+    <link rel="stylesheet" href="/assets/css/datatables.bootstrap5.min.css">
   </head>
   <body class="with-welcome-text">
       @include('dashboard.navbar')
@@ -41,6 +42,9 @@
     <script src="/assets/js/jquery.cookie.js" type="text/javascript"></script>
     <script src="/assets/js/dashboard.js"></script>
     {{-- <script src="assets/js/Chart.roundedBarCharts.js"></script> --}}
+
+    <script src="/assets/js/datatables.min.js"></script>
+    <script src="/assets/js/datatables.bootstrap5.min.js"></script>
 
     @include('utils.sweetalert-js')
     @include('utils.greeting-js')

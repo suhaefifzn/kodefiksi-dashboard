@@ -61,6 +61,9 @@ Route::middleware('auth.token')
             ->middleware('admin')
             ->group(function () {
                 Route::get('', 'index')->name('users');
+                Route::post('', 'store')->name('users.add');
+                Route::get('/table', 'dataTable')->name('users.table');
+                Route::delete('/delete', 'delete')->name('users.delete');
             });
 
         /**
