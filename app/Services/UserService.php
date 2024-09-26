@@ -82,7 +82,7 @@ class UserService extends MyWebService {
      */
     public function editPasswordUser($username, $password) {
         $payload = [
-            'password' => $password
+            'new_password' => $password
         ];
 
         return $this->put("/$username/password", $payload);

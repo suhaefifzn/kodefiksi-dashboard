@@ -51,6 +51,12 @@ Route::middleware('auth.token')
             ->middleware('admin')
             ->group(function () {
                 Route::get('', 'index')->name('categories');
+                Route::post('', 'store')->name('categories.add');
+                Route::delete('/delete', 'delete')->name('categories.delete');
+                Route::put('/edit/{slug}', 'updateCategoryName')->name('categories.edit.name');
+                Route::get('/list', 'getCategories')->name('categories.get.list');
+                Route::get('/table', 'renderTable')->name('categories.get.table');
+                Route::get('/{slug}', 'getDetailCategory')->name('categories.get.detail');
             });
 
         /**
@@ -64,6 +70,9 @@ Route::middleware('auth.token')
                 Route::post('', 'store')->name('users.add');
                 Route::get('/table', 'dataTable')->name('users.table');
                 Route::delete('/delete', 'delete')->name('users.delete');
+                Route::put('/password', 'changePassword')->name('users.change.password');
+                Route::put('/profile/{username}', 'changeProfile')->name('users.change.profile');
+                Route::get('/profile/{username}', 'getProfile')->name('users.get.profile');
             });
 
         /**

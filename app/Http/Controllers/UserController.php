@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -28,10 +29,10 @@ class UserController extends Controller
 
             return DataTables::of($users)
                 ->addColumn('action', function($row){
-                    $editBtn = '<button class="badge badge-primary border-0" title="Edit" onclick="editUser('.$row['username'].')"><i class="fa fa-pencil"></i></button>';
+                    $editBtn = '<button class="badge badge-secondary border-0" title="Edit" onclick="editUser(this)" data-username="'. $row['username'] .'"><i class="fa fa-pencil"></i></button>';
                     $deleteBtn = '<button class="badge badge-danger border-0" title="Delete" onclick="deleteUser(this)"
                         data-token="'. csrf_token() .'" data-username="'. $row['username'] .'"><i class="fa fa-times"></i></button>';
-                    $editPasswordBtn = '<button class="badge badge-dark border-0" title="Change Password" onclick="editPassword('.$row['username'].')"><i class="fa fa-key"></i></button>';
+                    $editPasswordBtn = '<button class="badge badge-dark border-0" title="Change Password" onclick="editPassword(this)" data-username="'. $row['username'] .'"><i class="fa fa-key"></i></button>';
                     $wrapper = '<div class="d-flex gap-2">' . $editBtn . $editPasswordBtn . $deleteBtn . '</div>';
 
                     return $wrapper;
@@ -39,6 +40,28 @@ class UserController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
+    }
+
+    public function getProfile($username) {
+        if (Str::length($username) > 1) {
+            $response = $this->userService->getDetailUser($username);
+            return $response;
+        }
+
+        return response()->json([
+            'status' => 'fail',
+            'message' => 'Username was not found'
+        ], 404);
+    }
+
+    public function changeProfile(Request $request) {
+        $data = [
+            'name' => $request->name,
+            'username' => $request->username,
+            'email' => $request->email,
+        ];
+        $response = $this->userService->editUser($request->_username, $data);
+        return $response;
     }
 
     public function delete(Request $request) {
@@ -62,6 +85,11 @@ class UserController extends Controller
         unset($data['_method']);
         $response = $this->userService->addNewUser($data);
 
+        return $response;
+    }
+
+    public function changePassword(Request $request) {
+        $response = $this->userService->editPasswordUser($request->username, $request->password);
         return $response;
     }
 }
