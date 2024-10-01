@@ -7,19 +7,19 @@
         </a>
     </li>
     <li class="nav-item nav-category">Menu</li>
-        <li class="nav-item">
-        <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+    <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="collapse" href="#type" aria-expanded="false" aria-controls="type">
             <i class="menu-icon mdi mdi-file-document"></i>
             <span class="menu-title">Artikel</span>
             <i class="menu-arrow"></i>
         </a>
-        <div class="collapse" id="auth">
+        <div class="collapse" id="type">
             <ul class="nav flex-column sub-menu">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('articles.publish') }}"> Dirilis</a>
+                    <a class="nav-link" href="{{ route('articles.index') }}?is_draft=false"> Dirilis</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('articles.draft') }}"> Disimpan</a>
+                    <a class="nav-link" href="{{ route('articles.index') }}?is_draft=true"> Didraft</a>
                 </li>
             </ul>
         </div>

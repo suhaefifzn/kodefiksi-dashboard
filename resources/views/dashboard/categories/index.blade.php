@@ -277,7 +277,7 @@
                     url: "{{ route('categories.get.table') }}" + '?category=' + category,
                     type: "GET",
                     data: (val) => {
-                        console.log(val);
+                        // console.log(val);
                     },
                     dataSrc: (json) => {
                         // console.log("Data received from server:", json.extraData);

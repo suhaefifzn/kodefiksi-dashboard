@@ -81,7 +81,6 @@ class CategoryController extends Controller
                 });
             }
 
-
             $totalRecords = count($decodedResponse['data']['articles']['article_list']);
             $filteredRecords = count($articles);
             $articles = array_slice($articles, $request->input('start'), $request->input('length'));

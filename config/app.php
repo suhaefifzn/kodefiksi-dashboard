@@ -124,6 +124,7 @@ return [
     ],
     'my_config' => [
         'api_url' => env('API_URL'),
-        'client_token' => env('CLIENT_TOKEN', '')
+        'client_token' => env('CLIENT_TOKEN', ''),
+        'api_ninjas_token' => env('API_NINJAS_TOKEN', '')
     ]
 ];

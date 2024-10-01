@@ -17,6 +17,11 @@
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="shortcut icon" href="/assets/images/logo.png" />
     <link rel="stylesheet" href="/assets/css/datatables.bootstrap5.min.css">
+    <link rel="stylesheet" href="/assets/css/my.css">
+
+    {{-- CSS --}}
+    @yield('style')
+
   </head>
   <body class="with-welcome-text">
       @include('dashboard.navbar')
@@ -55,7 +60,32 @@
             $('#signOutButton').on('click', () => {
                 window.location.href = '/logout';
             });
-        })
+
+            generateQuotes();
+        });
+
+        const generateQuotes = () => {
+            $.ajax({
+                url: 'https://api.api-ninjas.com/v1/quotes?category=success',
+                type: 'GET',
+                // headers: {
+                //     'X-Api-Key': @json(config('app.my_config.api_ninjas_token'))
+                // },
+                beforeSend: () => {
+                    $('#greetingSub').addClass('skeleton-text')
+                },
+                success: (response, status, xhr) => {
+                    const { quote } = response[0];
+                    $('#greetingSub').text(quote).removeClass('skeleton-text');
+                },
+                error: (xhr) => {
+                    // console.log(xhr);
+                    $('#greetingSub')
+                        .text('Good luck and have fun')
+                        .removeClass('skeleton-text');
+                }
+            });
+        }
     </script>
   </body>
 </html>

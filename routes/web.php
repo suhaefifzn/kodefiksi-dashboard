@@ -39,8 +39,16 @@ Route::middleware('auth.token')
         Route::controller(ArticleController::class)
             ->prefix('articles')
             ->group(function () {
-                Route::get('published', 'getPublishedList')->name('articles.publish');
-                Route::get('draft', 'getDraftList')->name('articles.draft');
+                Route::get('', 'index')->name('articles.index');
+                Route::post('', 'store')->name('articles.add');
+                Route::put('/update', 'update')->name('articles.update');
+                Route::get('/table', 'renderTable')->name('articles.table');
+                Route::get('/create', 'create')->name('articles.create');
+                Route::delete('/delete', 'delete')->name('articles.delete');
+                Route::get('/body/images', 'getDataTableBodyImages')->name('articles.body.images.table');
+                Route::post('/body/images', 'storeBodyImages')->name('articles.body.images.add');
+                Route::get('/edit/{slug}', 'edit')->name('articles.edit');
+                Route::get('/{slug}', 'detail')->name('articles.detail');
             });
 
         /**

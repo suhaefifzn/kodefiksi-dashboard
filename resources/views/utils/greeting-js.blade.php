@@ -3,13 +3,13 @@
         const currentHour = new Date().getHours();
 
         if (currentHour >= 5 && currentHour < 12) {
-            return 'Selamat Pagi';
+            return 'Good Morning';
         } else if (currentHour >= 12 && currentHour < 15) {
-            return 'Selamat Siang';
+            return 'Good Afternoon';
         } else if (currentHour >= 15 && currentHour < 18) {
-            return 'Selamat Sore';
+            return 'Good Evening';
         } else {
-            return 'Selamat Malam';
+            return 'Good Night';
         }
     };
 

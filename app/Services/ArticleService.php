@@ -69,12 +69,13 @@ class ArticleService extends MyWebService {
      * @return mixed
      */
     public function addArticle($payload, $imageThumbnail) {
-        return $this->postOrPutWithFile('POST', '', $payload, $imageThumbnail, 'image');
+        return $this->postOrPutWithFile('POST', '', $payload, $imageThumbnail, 'img_thumbnail');
     }
 
     /**
      * To edit article
      *
+     * @param string $slug
      * @param array $payload
      * e.g., [
      *  'category_id' => 1,
@@ -85,9 +86,9 @@ class ArticleService extends MyWebService {
      * @param $imageThumbnail
      * @return mixed
      */
-    public function editArticle($payload, $imageThumbnail) {
+    public function editArticle($slug, $payload, $imageThumbnail) {
         $payload['_method'] = 'PUT';
-        return $this->postOrPutWithFile('PUT', '', $payload, $imageThumbnail, 'image');
+        return $this->postOrPutWithFile('POST', "/$slug", $payload, $imageThumbnail, 'img_thumbnail');
     }
 
     /**
@@ -106,6 +107,6 @@ class ArticleService extends MyWebService {
      * @return mixed
      */
     public function addBodyImage($image) {
-        return $this->postOrPutWithFile('POST', '/upload-images', [], $image);
+        return $this->postOrPutWithFile('POST', '/upload-image', [], $image, 'image');
     }
 }
