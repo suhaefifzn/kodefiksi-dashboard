@@ -109,4 +109,8 @@ class ArticleService extends MyWebService {
     public function addBodyImage($image) {
         return $this->postOrPutWithFile('POST', '/upload-image', [], $image, 'image');
     }
+
+    public function getStats() {
+        return $this->get('/stats');
+    }
 }

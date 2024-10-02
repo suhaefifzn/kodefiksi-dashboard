@@ -127,11 +127,13 @@ abstract class MyWebService {
                 }
             }
 
-            $multipartData[] = [
-                'name' => $fileName,
-                'contents' => fopen($filePath, 'r'),
-                'filename' => basename($filePath),
-            ];
+            if ($filePath) {
+                $multipartData[] = [
+                    'name' => $fileName,
+                    'contents' => fopen($filePath, 'r'),
+                    'filename' => basename($filePath),
+                ];
+            }
 
             $response = $this->client->request($method, $fullURL, [
                 'headers' => $this->headers,

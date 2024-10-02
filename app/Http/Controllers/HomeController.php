@@ -7,11 +7,15 @@ use Illuminate\Support\Facades\Session;
 
 // ? Service
 use App\Services\ProfileService;
+use App\Services\ArticleService;
 
 class HomeController extends Controller
 {
     public function index() {
+        $articleService = new ArticleService();
         $profileService = new ProfileService();
+        $articleStats = $articleService->getStats();
+        $decodedArticleStatsResponse = $this->decodeJsonResponse($articleStats)['data'];
         $profileUser = $profileService->getMyProfile();
         $decodedProfileResponse = $this->decodeJsonResponse($profileUser)['data'];
 
@@ -21,7 +25,8 @@ class HomeController extends Controller
         Session::put('user_admin', $decodedProfileResponse['is_admin']);
 
         return view('dashboard.home.index', [
-            'title' => 'Beranda'
+            'title' => 'Beranda',
+            'data' => $decodedArticleStatsResponse
         ]);
     }
 }
