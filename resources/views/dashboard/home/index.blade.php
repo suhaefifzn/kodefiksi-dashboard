@@ -86,10 +86,12 @@
                                                     <ul class="todo-list todo-list-rounded">
                                                         <li class="d-block border-bottom-0">
                                                             <div class="form-check m-0 w-100">
-                                                                <a href="#" data-slug="{{ $data['last_article']['slug'] }}" class="form-check-label ms-0 text-decoration-none fw-bold" onclick="showArticle(this)">
-                                                                    {{ $data['last_article']['title'] }}
-                                                                    <i class="input-helper rounded"></i>
-                                                                </a>
+                                                                @if (isset($data['last_article']))
+                                                                    <a href="#" data-slug="{{ $data['last_article']['slug'] }}" class="form-check-label ms-0 text-decoration-none fw-bold" onclick="showArticle(this)">
+                                                                        {{ $data['last_article']['title'] }}
+                                                                        <i class="input-helper rounded"></i>
+                                                                    </a>
+                                                                @endif
                                                             </div>
                                                         </li>
                                                     </ul>
