@@ -13,9 +13,9 @@
     <link rel="stylesheet" href="/assets/vendors/css/vendor.bundle.base.css">
     <link rel="stylesheet" href="/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
     <link rel="stylesheet" href="/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
-    <link rel="stylesheet" type="text/css" href="/assets/js/select.dataTables.min.css">->
+    <link rel="stylesheet" type="text/css" href="/assets/js/select.dataTables.min.css">
     <link rel="stylesheet" href="/assets/css/style.css">
-    <link rel="shortcut icon" href="/assets/images/logo.png" />
+    <link rel="shortcut icon" href="/assets/images/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="/assets/css/datatables.bootstrap5.min.css">
     <link rel="stylesheet" href="/assets/css/my.css">
 
