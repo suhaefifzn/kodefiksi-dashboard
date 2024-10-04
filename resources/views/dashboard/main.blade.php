@@ -68,9 +68,9 @@
             $.ajax({
                 url: 'https://api.api-ninjas.com/v1/quotes?category=success',
                 type: 'GET',
-                // headers: {
-                //     'X-Api-Key': @json(config('app.my_config.api_ninjas_token'))
-                // },
+                headers: {
+                    'X-Api-Key': @json(config('app.my_config.api_ninjas_token'))
+                },
                 beforeSend: () => {
                     $('#greetingSub').addClass('skeleton-text')
                 },
