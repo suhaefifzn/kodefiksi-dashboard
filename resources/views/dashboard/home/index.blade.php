@@ -59,20 +59,26 @@
                                                     <span>
                                                         Artikel Terakhir
                                                     </span>
-                                                    <span class="text-small me-2">
+                                                    @if (isset($data['last_article']))
+                                                        <span class="text-small me-2">
                                                         @php
                                                             $date = new DateTime($data['last_article']['created_at']);
                                                             $formattedDate = $date->format('d/m/Y');
                                                         @endphp
                                                         -- {{ $formattedDate }}
-                                                    </span>
-                                                    @if ($data['last_article']['is_draft'])
-                                                        <span class="badge badge-opacity-warning me-3">
-                                                            Didraft
                                                         </span>
+                                                        @if ($data['last_article']['is_draft'])
+                                                            <span class="badge badge-opacity-warning me-3">
+                                                                Didraft
+                                                            </span>
+                                                        @else
+                                                            <span class="badge badge-opacity-success me-3">
+                                                                Dirilis
+                                                            </span>
+                                                        @endif
                                                     @else
-                                                        <span class="badge badge-opacity-success me-3">
-                                                            Dirilis
+                                                        <span class="text-small me-2">
+                                                            -
                                                         </span>
                                                     @endif
                                                 </p>
