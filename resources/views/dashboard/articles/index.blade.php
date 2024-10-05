@@ -9,7 +9,6 @@
 
     #article figure.image {
         width: 100%;
-        max-height: 500px;
         position: relative;
     }
 
