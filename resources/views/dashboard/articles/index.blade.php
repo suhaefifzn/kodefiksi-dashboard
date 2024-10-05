@@ -9,11 +9,13 @@
 
     #article figure.image {
         width: 100%;
+        max-height: 500px;
         position: relative;
     }
 
     #article figure img {
         width: 100%;
+        height: 100%;
         object-fit: cover;
         object-position: center;
     }

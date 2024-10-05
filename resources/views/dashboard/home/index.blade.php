@@ -1,4 +1,26 @@
 @extends('dashboard.main', ['title' => $title])
+@section('style')
+    <style>
+        #article p {
+            margin-top: 1em;
+            margin-bottom: 1em;
+            font-size: 0.9em;
+        }
+
+        #article figure.image {
+            width: 100%;
+            max-height: 500px;
+            position: relative;
+        }
+
+        #article figure img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+    </style>
+@endsection
 @section('content')
 <div class="content-wrapper">
     <div class="row">

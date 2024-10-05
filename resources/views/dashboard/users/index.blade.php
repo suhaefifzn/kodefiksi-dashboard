@@ -54,11 +54,11 @@
                         </div>
                         <div class="form-group my-2">
                             <input type="email" name="email" id="email" required>
-                            <label for="input" class="control-label">Email</label>
+                            <label for="input" class="control-label">sEmail</label>
                             <i class="bar"></i>
                         </div>
                         <div class="form-group my-2">
-                            <input type="password" name="password" id="password" required>
+                            <input type="password" name="password" id="passwordAdd" required>
                             <label for="input" class="control-label">Password</label>
                             <i class="bar"></i>
                         </div>
