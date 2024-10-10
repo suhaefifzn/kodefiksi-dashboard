@@ -12,6 +12,10 @@
             border-left: 5px solid black;
             padding-left: 8px;
         }
+
+        .ck-editor__editable_inline {
+            height: 500px;
+        }
     </style>
 @endsection
 @section('content')
@@ -48,11 +52,11 @@
                                 Sisipkan Gambar Lainnya
                             </button>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3 col-12 col-xxl-8">
                             <textarea name="body" id="body"></textarea>
                             <div id="wordCount"></div>
                         </div>
-                        <div class="mb-3 d-flex justify-content-end gap-2">
+                        <div class="mb-3 col-12 col-xxl-8 d-flex justify-content-end gap-2">
                             <button class="btn btn-primary" type="button" data-draft="false" onclick="addArticle(this)">
                                 Publish
                             </button>
