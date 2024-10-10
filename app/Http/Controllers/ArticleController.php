@@ -112,6 +112,7 @@ class ArticleController extends Controller
     public function store(Request $request) {
         $payload = [
             'title' => $request->title,
+            'slug' => $request->slug,
             'category_id' => $request->category_id,
             'is_draft' => $request->is_draft,
             'body' => $request->body
@@ -149,6 +150,11 @@ class ArticleController extends Controller
         $image = $request->file('img_thumbnail');
         $response = $this->articleService->editArticle($request->slug, $payload, $image);
 
+        return $response;
+    }
+
+    public function generateSlug(Request $request) {
+        $response = $this->articleService->generateSlugByTilte($request->title);
         return $response;
     }
 }

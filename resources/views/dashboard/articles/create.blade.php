@@ -32,6 +32,10 @@
                             <label for="title">Judul</label>
                         </div>
                         <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="slug" placeholder="Judul Artikel" autocomplete="off" required>
+                            <label for="slug">Slug</label>
+                        </div>
+                        <div class="form-floating mb-3">
                             <select class="form-select" id="category" required>
                               <option selected disabled>Klik untuk membuka pilihan</option>
                               @foreach ($data['categories'] as $category)
@@ -349,6 +353,31 @@
             document.execCommand('copy');
             toast('success', 'The image URL has been successfully copied');
         });
+
+        // generate slug from title
+        $('#addArticleForm #title').on('change', (e) => {
+            e.preventDefault();
+            const title = $('#addArticleForm #title').val();
+
+            $.ajax({
+                url: @json(route('articles.slug.generate')),
+                type: 'POST',
+                data: {
+                    title,
+                    _token: @json(csrf_token()),
+                },
+                beforeSend: () => {
+                    $('#addArticleForm #slug').val('Loading...').prop('disabled', true);
+                },
+                success: (response, status, xhr) => {
+                    $('#addArticleForm #slug').val(response.data.slug).prop('disabled', false);
+                },
+                error: (xhr, status) => {
+                    console.log(xhr);
+                    return toast('error', 'Oops, something gone wrong.', 3000);
+                }
+            })
+        })
     });
 
     const showImage = (element) => {
@@ -367,6 +396,7 @@
         const data = {
             '_token': @json(csrf_token()),
             'title': $('#addArticleForm #title').val(),
+            'slug': $('#addArticleForm #slug').val(),
             'category_id': $('#addArticleForm #category').find(':selected').val(),
             'img_thumbnail': $('#addArticleForm #thumbnail')[0].files[0],
             'is_draft': draft,

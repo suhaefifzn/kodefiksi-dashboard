@@ -113,4 +113,10 @@ class ArticleService extends MyWebService {
     public function getStats() {
         return $this->get('/stats');
     }
+
+    public function generateSlugByTilte(string $title) {
+        return $this->post('/generate-slug', [
+            'title' => $title
+        ]);
+    }
 }

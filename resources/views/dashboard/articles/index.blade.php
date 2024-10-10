@@ -211,13 +211,12 @@
                 success: (response, status, xhr) => {
                     const { data: article } = response;
                     const articleStatus = article.is_draft ? 'Draft' : 'Rilis';
-                    const imgThumbnail = @json(config('app.my_config.api_url')) + '/' + article.img_thumbnail;
 
                     $('#showArticleForm #status').val(articleStatus);
                     $('#showArticleForm #judul').val(article.title);
                     $('#showArticleForm #kategori').val(article.category.name);
                     $('#showArticleForm #tanggal').val(formatDate(article.created_at));
-                    $('#showArticleForm #thumbnail').attr('src', imgThumbnail);
+                    $('#showArticleForm #thumbnail').attr('src', article.img_thumbnail);
                     $('#showArticleForm #article').html(article.body);
                     $('#showArticleForm #article img').attr('loading', 'lazy');
 

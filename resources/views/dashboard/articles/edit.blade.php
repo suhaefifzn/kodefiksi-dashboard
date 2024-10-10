@@ -12,6 +12,10 @@
             border-left: 5px solid black;
             padding-left: 8px;
         }
+
+        .ck-editor__editable_inline {
+            height: 500px;
+        }
     </style>
 @endsection
 @section('content')
@@ -45,7 +49,7 @@
                             <label for="thumbnail" class="form-label">Thumbnail</label>
                             <input class="form-control" type="file" accept=".png,.jpg" id="thumbnail" autocomplete="off">
                             <div id="previewThumbnailWrapper" style="width: 100%; max-height: 1080px" class="border border-primary rounded border-opacity-25 overflow-hidden text-center my-3">
-                                <img src="{{ config('app.my_config.api_url') . '/' . $data['article']['img_thumbnail'] }}" alt="Preview Thumbnail" class="img-fluid" id="previewThumbnail" style="height: 100%;">
+                                <img src="{{ $data['article']['img_thumbnail'] }}" alt="Preview Thumbnail" class="img-fluid" id="previewThumbnail" style="height: 100%;">
                             </div>
                         </div>
                         <div class="mb-3">
@@ -53,11 +57,11 @@
                                 Sisipkan Gambar Lainnya
                             </button>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3 col-12 col-xl-8">
                             <textarea name="body" id="body">{!! $data['article']['body'] !!}</textarea>
                             <div id="wordCount"></div>
                         </div>
-                        <div class="mb-3 d-flex justify-content-end gap-2">
+                        <div class="mb-3 col-12 col-xl-8 d-flex justify-content-end gap-2">
                             <button class="btn btn-primary" type="button" data-draft="false" onclick="editArticle(this)">
                                 Publish
                             </button>
