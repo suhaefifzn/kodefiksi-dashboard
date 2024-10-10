@@ -16,9 +16,10 @@ class guest
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Session::exists('access_token')) {
-            return $next($request);
+        if (Session::exists('access_token')) {
+            return redirect()->back();
         }
-        return redirect()->back();
+
+        return $next($request);
     }
 }

@@ -25,6 +25,8 @@ class hasToken
                 return $next($request);
             }
         }
+
+        Session::flush();
         return redirect()->route('auth.index');
     }
 }
