@@ -46,7 +46,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="thumbnail" class="form-label">Thumbnail</label>
-                            <input class="form-control" type="file" accept=".png,.jpg" id="thumbnail" autocomplete="off">
+                            <input class="form-control" type="file" accept=".png,.jpg,.webp" id="thumbnail" autocomplete="off">
                             <div id="previewThumbnailWrapper" style="width: 100%; max-height: 1080px" class="border border-primary rounded border-opacity-25 overflow-hidden text-center my-3 d-none">
                                 <img src="#" alt="Preview Thumbnail" class="img-fluid" id="previewThumbnail" style="height: 100%;">
                             </div>
@@ -86,7 +86,7 @@
             <div class="modal-body">
                 <form action="{{ route('articles.body.images.add') }}" method="POST" enctype="multipart/form-data" id="addBodyImageForm">
                     <div class="input-group">
-                        <input type="file" accept=".png,.jpg" class="form-control" id="uploadBodyImageInput" aria-describedby="uploadBodyImageButton" aria-label="Upload" autocomplete="off">
+                        <input type="file" accept=".png,.jpg,.webp" class="form-control" id="uploadBodyImageInput" aria-describedby="uploadBodyImageButton" aria-label="Upload" autocomplete="off">
                         <button class="btn btn-primary border-0" id="uploadBodyImageButton" title="Upload Image">
                             <i class="fa fa-upload"></i>
                         </button>
