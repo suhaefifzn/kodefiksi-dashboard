@@ -58,7 +58,7 @@
                             </button>
                         </div>
                         <div class="mb-3 col-12 col-xl-8">
-                            <textarea name="body" id="body">{!! $data['article']['body'] !!}</textarea>
+                            <textarea name="body" id="body">{{ $data['article']['body'] }}</textarea>
                             <div id="wordCount"></div>
                         </div>
                         <div class="mb-3 col-12 col-xl-8 d-flex justify-content-end gap-2">
