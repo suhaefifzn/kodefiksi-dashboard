@@ -57,6 +57,10 @@
                                 Sisipkan Gambar Lainnya
                             </button>
                         </div>
+                        <div class="form-floating mb-3 col-12 col-xl-8">
+                            <textarea name="excerpt" class="form-control" style="height: 100px" id="excerpt" required autocomplete="off">{!! $data['article']['excerpt'] !!}</textarea>
+                            <label for="excerpt">Deskripsi (min-max: 140-200 characters)</label>
+                        </div>
                         <div class="mb-3 col-12 col-xl-8">
                             <textarea name="body" id="body">{{ $data['article']['body'] }}</textarea>
                             <div id="wordCount"></div>
@@ -377,6 +381,7 @@
             'category_id': $('#editArticleForm #category').find(':selected').val(),
             'img_thumbnail': $('#editArticleForm #thumbnail')[0].files[0],
             'is_draft': draft,
+            'excerpt': $('#editArticleForm #excerpt').val(),
             'body': bodyContent,
             'slug': slug
         };

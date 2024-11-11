@@ -56,6 +56,10 @@
                                 Sisipkan Gambar Lainnya
                             </button>
                         </div>
+                        <div class="form-floating mb-3 col-12 col-xl-8">
+                            <textarea name="excerpt" class="form-control" style="height: 100px" id="excerpt" required autocomplete="off"></textarea>
+                            <label for="excerpt">Deskripsi (min-max: 140-200 characters)</label>
+                        </div>
                         <div class="mb-3 col-12 col-xxl-8">
                             <textarea name="body" id="body"></textarea>
                             <div id="wordCount"></div>
@@ -400,6 +404,7 @@
             'category_id': $('#addArticleForm #category').find(':selected').val(),
             'img_thumbnail': $('#addArticleForm #thumbnail')[0].files[0],
             'is_draft': draft,
+            'excerpt': $('#addArticleForm #excerpt').val(),
             'body': bodyContent
         };
         const formData = new FormData();

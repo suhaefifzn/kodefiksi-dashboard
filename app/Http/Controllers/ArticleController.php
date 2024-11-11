@@ -115,10 +115,12 @@ class ArticleController extends Controller
             'slug' => $request->slug,
             'category_id' => $request->category_id,
             'is_draft' => $request->is_draft,
+            'excerpt' => $request->excerpt,
             'body' => $request->body
         ];
         $image = $request->file('img_thumbnail');
         $response = $this->articleService->addArticle($payload, $image);
+
         return $response;
     }
 
@@ -144,9 +146,9 @@ class ArticleController extends Controller
             'title' => $request->title,
             'category_id' => $request->category_id,
             'is_draft' => $request->is_draft,
+            'excerpt' => $request->excerpt,
             'body' => $request->body
         ];
-
         $image = $request->file('img_thumbnail');
         $response = $this->articleService->editArticle($request->slug, $payload, $image);
 
