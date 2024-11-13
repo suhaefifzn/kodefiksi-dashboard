@@ -331,7 +331,7 @@
                 processData:false,
                 contentType: false,
                 success: (response, status, xhr) => {
-                    toast('success', response.message, 2000);
+                    toast('success', 'Image has been successfully uploaded', 2000);
                     table.ajax.reload(null, false);
                 },
                 error: (xhr, status) => {
@@ -421,6 +421,7 @@
             processData:false,
             contentType: false,
             success: (response, status, xhr) => {
+                console.log(response);
                 return toast('success', response.message, 2000)
                     .then(() => {
                         location.href = @json(route('articles.index')) + '?is_draft=' + draft;
