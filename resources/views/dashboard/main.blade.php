@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta name="robots" content="noindex, nofollow">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Kode Fiksi {{ isset($title) ? ' - ' . $title : '' }}</title>
-
     {{-- Favicons --}}
     <link rel="icon" type="image/png" href="/assets/favicon/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/assets/favicon/favicon.svg" />
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png" />
     <link rel="manifest" href="/assets/favicon/site.webmanifest" />
-
     <link rel="stylesheet" href="/assets/vendors/feather/feather.css">
     <link rel="stylesheet" href="/assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="/assets/vendors/ti-icons/css/themify-icons.css">
@@ -25,10 +24,8 @@
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/datatables.bootstrap5.min.css">
     <link rel="stylesheet" href="/assets/css/my.css">
-
     {{-- CSS --}}
     @yield('style')
-
   </head>
   <body class="with-welcome-text">
       @include('dashboard.navbar')
@@ -40,7 +37,6 @@
         </div>
       </div>
     </div>
-
     <script src="/assets/js/jquery.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="/assets/vendors/js/vendor.bundle.base.js"></script>
     <script src="/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
@@ -54,20 +50,16 @@
     <script src="/assets/js/jquery.cookie.js" type="text/javascript"></script>
     <script src="/assets/js/dashboard.js"></script>
     {{-- <script src="assets/js/Chart.roundedBarCharts.js"></script> --}}
-
     <script src="/assets/js/datatables.min.js"></script>
     <script src="/assets/js/datatables.bootstrap5.min.js"></script>
-
     @include('utils.sweetalert-js')
     @include('utils.greeting-js')
     @yield('scripts')
-
     <script>
         $(document).ready(() => {
             $('#signOutButton').on('click', () => {
                 window.location.href = '/logout';
             });
-
             generateQuotes();
         });
 
