@@ -8,6 +8,7 @@ use Yajra\DataTables\DataTables;
 // ? Service
 use App\Services\ArticleService;
 use App\Services\CategoryService;
+use Illuminate\Support\Facades\Artisan;
 
 class ArticleController extends Controller
 {
@@ -66,6 +67,12 @@ class ArticleController extends Controller
 
     public function delete(Request $request) {
         $response = $this->articleService->deleteArticle($request->slug);
+        $status = $response->getData('data')['status'];
+
+        if ($status == 'success') {
+            Artisan::call('app:generate-sitemap');
+        }
+
         return $response;
     }
 
@@ -120,6 +127,11 @@ class ArticleController extends Controller
         ];
         $image = $request->file('img_thumbnail');
         $response = $this->articleService->addArticle($payload, $image);
+        $status = $response->getData('data')['status'];
+
+        if ($status == 'success') {
+            Artisan::call('app:generate-sitemap');
+        }
 
         return $response;
     }
@@ -151,6 +163,11 @@ class ArticleController extends Controller
         ];
         $image = $request->file('img_thumbnail');
         $response = $this->articleService->editArticle($request->slug, $payload, $image);
+        $status = $response->getData('data')['status'];
+
+        if ($status == 'success') {
+            Artisan::call('app:generate-sitemap');
+        }
 
         return $response;
     }

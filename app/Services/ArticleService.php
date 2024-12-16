@@ -119,4 +119,13 @@ class ArticleService extends MyWebService {
             'title' => $title
         ]);
     }
+
+    /**
+     * To get list of slugs that available for sitemap
+     *
+     * @return mixed
+     */
+    public function getSlugs() {
+        return $this->get('/slugs');
+    }
 }
