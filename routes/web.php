@@ -5,7 +5,6 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfilController;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('throttle:120,1')
@@ -69,22 +68,6 @@ Route::middleware('throttle:120,1')
                         Route::get('/list', 'getCategories')->name('categories.get.list');
                         Route::get('/table', 'renderTable')->name('categories.get.table');
                         Route::get('/{slug}', 'getDetailCategory')->name('categories.get.detail');
-                    });
-
-                /**
-                 * Dashboard - Users
-                 */
-                Route::controller(UserController::class)
-                    ->prefix('users')
-                    ->middleware('admin')
-                    ->group(function () {
-                        Route::get('', 'index')->name('users');
-                        Route::post('', 'store')->name('users.add');
-                        Route::get('/table', 'dataTable')->name('users.table');
-                        Route::delete('/delete', 'delete')->name('users.delete');
-                        Route::put('/password', 'changePassword')->name('users.change.password');
-                        Route::put('/profile/{username}', 'changeProfile')->name('users.change.profile');
-                        Route::get('/profile/{username}', 'getProfile')->name('users.get.profile');
                     });
 
                 /**

@@ -24,7 +24,6 @@
             </ul>
         </div>
     </li>
-
     @if (session('user_admin'))
         <li class="nav-item">
             <a class="nav-link" href="{{ route('categories') }}">
@@ -32,14 +31,7 @@
                 <span class="menu-title">Kategori</span>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('users') }}">
-                <i class="menu-icon mdi mdi-account-group"></i>
-                <span class="menu-title">Pengguna</span>
-            </a>
-        </li>
     @endif
-
     <li class="nav-item">
         <a class="nav-link" href="{{ route('profile') }}">
             <i class="menu-icon mdi mdi-account"></i>
