@@ -38,6 +38,10 @@
                   <div class="form-group">
                     <input type="password" class="form-control form-control-lg" id="password" name="password" placeholder="Password" required>
                   </div>
+                  <div class="form-group">
+                    {!! NoCaptcha::renderJs() !!}
+                    {!! NoCaptcha::display() !!}
+                  </div>
                   <div class="mt-3 d-grid gap-2">
                     <button class="btn btn-block btn-primary btn-lg fw-medium auth-form-btn">SIGN IN</button>
                   </div>
@@ -58,6 +62,7 @@
                     _token: e.target[0].value,
                     email: e.target[1].value,
                     password: e.target[2].value,
+                    'g-recaptcha-response': e.target[3].value
                 };
                 const formAction = e.currentTarget.action;
 
@@ -70,6 +75,12 @@
                         location.href = url;
                     },
                     error: (xhr, status) => {
+                        if (xhr.responseJSON.hasOwnProperty('errors')) {
+                            const errors = xhr.responseJSON.errors;
+                            if (errors.hasOwnProperty('g-recaptcha-response')) {
+                                return toast('error', 'Please verify that your not a robot.')
+                            }
+                        }
                         return toast('error', xhr.responseJSON.message);
                     }
                 });
