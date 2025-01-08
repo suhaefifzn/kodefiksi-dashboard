@@ -65,7 +65,7 @@
 
         const generateQuotes = () => {
             $.ajax({
-                url: 'https://api.api-ninjas.com/v1/quotes?category=success',
+                url: 'https://api.api-ninjas.com/v1/quotes',
                 type: 'GET',
                 headers: {
                     'X-Api-Key': @json(config('app.my_config.api_ninjas_token'))
