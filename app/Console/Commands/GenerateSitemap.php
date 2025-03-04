@@ -56,6 +56,11 @@ class GenerateSitemap extends Command
             );
             $sitemap->add(Url::create($url)->setPriority(1.0)->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY));
             $sitemap->add(
+                Url::create("{$url}ads.txt")
+                    ->setPriority(0.4)
+                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
+            );
+            $sitemap->add(
                 Url::create("{$url}about")
                     ->setPriority(0.4)
                     ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
@@ -92,7 +97,9 @@ class GenerateSitemap extends Command
             );
 
             // Simpan sitemap ke file
-            $publicHtmlPath = realpath(__DIR__ . '/../../../../../public_html/sitemap.xml');
+            $publicHtmlPath =  config('app.env') === 'production'
+                ? realpath(__DIR__ . '/../../../../../public_html/sitemap.xml')
+                : realpath(__DIR__ . '/../../../../public.kodefiksi/public/sitemap.xml');
             $sitemap->writeToFile($publicHtmlPath);
 
             $this->info('Sitemap generated successfully.');
