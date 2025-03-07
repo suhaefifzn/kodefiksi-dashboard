@@ -60,31 +60,11 @@
             $('#signOutButton').on('click', () => {
                 window.location.href = '/logout';
             });
-            generateQuotes();
-        });
 
-        const generateQuotes = () => {
-            $.ajax({
-                url: 'https://api.api-ninjas.com/v1/quotes',
-                type: 'GET',
-                headers: {
-                    'X-Api-Key': @json(config('app.my_config.api_ninjas_token'))
-                },
-                beforeSend: () => {
-                    $('#greetingSub').addClass('skeleton-text')
-                },
-                success: (response, status, xhr) => {
-                    const { quote } = response[0];
-                    $('#greetingSub').text(quote).removeClass('skeleton-text');
-                },
-                error: (xhr) => {
-                    // console.log(xhr);
-                    $('#greetingSub')
-                        .text('Good luck and have fun')
-                        .removeClass('skeleton-text');
-                }
-            });
-        }
+            $('#greetingSub')
+                .text('Good luck and have fun')
+                .removeClass('skeleton-text');
+        });
     </script>
   </body>
 </html>

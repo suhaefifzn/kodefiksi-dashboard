@@ -32,7 +32,9 @@ class GenerateSitemap extends Command
     {
         try {
             $sitemap = Sitemap::create();
-            $url = 'https://kodefiksi.com/';
+            $url = config('app.env') === 'production'
+                ? 'https://kodefiksi.com/'
+                : 'http://public.kodefiksi.test/';
 
             // articles from API
             $articleService = new ArticleService();
@@ -48,58 +50,10 @@ class GenerateSitemap extends Command
                 );
             }
 
-            // statis URLs
-            $sitemap->add(
-                Url::create("{$url}author/suhaefi21")
-                    ->setPriority(1)
-                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY)
-            );
-            $sitemap->add(Url::create($url)->setPriority(1.0)->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY));
-            $sitemap->add(
-                Url::create("{$url}ads.txt")
-                    ->setPriority(0.4)
-                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
-            );
-            $sitemap->add(
-                Url::create("{$url}about")
-                    ->setPriority(0.4)
-                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
-            );
-            $sitemap->add(
-                Url::create("{$url}contact")
-                    ->setPriority(0.4)
-                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
-            );
-            $sitemap->add(
-                Url::create("{$url}disclaimer")
-                    ->setPriority(0.4)
-                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
-            );
-            $sitemap->add(
-                Url::create("{$url}privacy-policy")
-                    ->setPriority(0.4)
-                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
-            );
-            $sitemap->add(
-                Url::create("{$url}category/anime")
-                    ->setPriority(0.8)
-                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY)
-            );
-            $sitemap->add(
-                Url::create("{$url}category/game")
-                    ->setPriority(0.8)
-                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY)
-            );
-            $sitemap->add(
-                Url::create("{$url}category/pemrograman")
-                    ->setPriority(0.8)
-                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY)
-            );
-
             // Simpan sitemap ke file
-            $publicHtmlPath =  config('app.env') === 'production'
-                ? realpath(__DIR__ . '/../../../../../public_html/sitemap.xml')
-                : realpath(__DIR__ . '/../../../../public.kodefiksi/public/sitemap.xml');
+            $publicHtmlPath = config('app.env') === 'production'
+                ? realpath(__DIR__ . '/../../../../../public_html/sitemap-articles.xml')
+                : realpath(__DIR__ . '/../../../../public.kodefiksi/public/sitemap-articles.xml');
             $sitemap->writeToFile($publicHtmlPath);
 
             $this->info('Sitemap generated successfully.');
