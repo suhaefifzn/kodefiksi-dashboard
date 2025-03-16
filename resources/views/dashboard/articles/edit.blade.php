@@ -45,6 +45,19 @@
                             </select>
                             <label for="category">Kategori</label>
                         </div>
+                        <div class="form-floating mb-3">
+                            <select class="form-select" id="language" required>
+                              <option selected disabled>Klik untuk membuka pilihan</option>
+                              @foreach ($data['languages'] as $language)
+                                @if ($data['article']['lang_id'] == $language['id'])
+                                    <option value="{{ $language['id'] }}" selected>{{ $language['name'] }}</option>
+                                @else
+                                    <option value="{{ $language['id'] }}">{{ $language['name'] }}</option>
+                                @endif
+                              @endforeach
+                            </select>
+                            <label for="category">Bahasa</label>
+                        </div>
                         <div class="mb-3">
                             <label for="thumbnail" class="form-label">Thumbnail</label>
                             <input class="form-control" type="file" accept=".png,.jpg,.webp" id="thumbnail" autocomplete="off">
@@ -379,6 +392,7 @@
             '_method': 'put',
             'title': $('#editArticleForm #title').val(),
             'category_id': $('#editArticleForm #category').find(':selected').val(),
+            'lang_id': $('#editArticleForm #language').find(':selected').val(),
             'img_thumbnail': $('#editArticleForm #thumbnail')[0].files[0],
             'is_draft': draft,
             'excerpt': $('#editArticleForm #excerpt').val(),

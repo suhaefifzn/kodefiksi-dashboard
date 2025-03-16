@@ -37,12 +37,21 @@
                         </div>
                         <div class="form-floating mb-3">
                             <select class="form-select" id="category" required>
-                              <option selected disabled>Klik untuk membuka pilihan</option>
+                              <option selected disabled>Klik untuk memilih kategori</option>
                               @foreach ($data['categories'] as $category)
                                   <option value="{{ $category['id'] }}">{{ $category['name'] }}</option>
                               @endforeach
                             </select>
                             <label for="category">Kategori</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <select class="form-select" id="language" required>
+                              <option selected disabled>Klik memilih bahasa</option>
+                              @foreach ($data['languages'] as $language)
+                                  <option value="{{ $language['id'] }}">{{ $language['name'] }}</option>
+                              @endforeach
+                            </select>
+                            <label for="languages">Bahasa</label>
                         </div>
                         <div class="mb-3">
                             <label for="thumbnail" class="form-label">Thumbnail</label>
@@ -402,6 +411,7 @@
             'title': $('#addArticleForm #title').val(),
             'slug': $('#addArticleForm #slug').val(),
             'category_id': $('#addArticleForm #category').find(':selected').val(),
+            'lang_id': $('#addArticleForm #language').find(':selected').val(),
             'img_thumbnail': $('#addArticleForm #thumbnail')[0].files[0],
             'is_draft': draft,
             'excerpt': $('#addArticleForm #excerpt').val(),

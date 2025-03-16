@@ -9,21 +9,21 @@ use Carbon\Carbon;
 
 use App\Services\ArticleService;
 
-class GenerateSitemap extends Command
+class GenerateSitemapEN extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:generate-sitemap';
+    protected $signature = 'app:generate-sitemap-en';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Generate sitemap for public kodefiksi.com';
+    protected $description = 'Generate sitemap EN version from api.kodefiksi.com';
 
     /**
      * Execute the console command.
@@ -38,7 +38,7 @@ class GenerateSitemap extends Command
 
             // articles from API
             $articleService = new ArticleService();
-            $response = $articleService->getSlugs('id');
+            $response = $articleService->getSlugs('en');
             $slugs = $response->getData('data')['data']['slugs'];
 
             foreach ($slugs as $slug) {
@@ -52,11 +52,11 @@ class GenerateSitemap extends Command
 
             // Simpan sitemap ke folder laravel public.kodefiksi
             $publicHtmlPath = config('app.env') === 'production'
-                ? realpath(__DIR__ . '/../../../../../public_html/sitemap-articles.xml')
-                : realpath(__DIR__ . '/../../../../public.kodefiksi/public/sitemap-articles.xml');
+                ? realpath(__DIR__ . '/../../../../../public_html/dashboard.kodefiksi/sitemap_test.xml')
+                : realpath(__DIR__ . '/../../../public/sitemap_test.xml');
             $sitemap->writeToFile($publicHtmlPath);
 
-            $this->info('Sitemap generated successfully.');
+            $this->info('Sitemap EN version successfully generated.');
         } catch (\Exception $e) {
             $this->error('Error: ' . $e->getMessage());
             $this->error('File: ' . $e->getFile() . ' on line ' . $e->getLine());

@@ -8,16 +8,20 @@ use Yajra\DataTables\DataTables;
 // ? Service
 use App\Services\ArticleService;
 use App\Services\CategoryService;
+use App\Services\LanguageService;
+
 use Illuminate\Support\Facades\Artisan;
 
 class ArticleController extends Controller
 {
     private $articleService;
     private $categoryService;
+    private $languageService;
 
     public function __construct() {
         $this->articleService = new ArticleService();
         $this->categoryService = new CategoryService();
+        $this->languageService = new LanguageService();
     }
 
     public function index(Request $request) {
@@ -49,7 +53,7 @@ class ArticleController extends Controller
                 ->addColumn('action', function ($row) {
                     $editButton = '<button class="badge badge-secondary border-0" title="Edit" onclick="editArticle(this)" data-slug="'. $row['slug'] .'"><i class="fa fa-pencil"></i></button>';
                     $showButton = '<button class="badge badge-info border-0" title="Show" onclick="showArticle(this)" data-slug="'. $row['slug'] .'"><i class="fa fa-eye"></i></button>';
-                    $deleteButton = '<button class="badge badge-danger border-0" title="Delete" onclick="deleteArticle(this)" data-slug="'. $row['slug'] .'"><i class="fa fa-trash-o"></i></button>';
+                    $deleteButton = '<button class="badge badge-danger border-0" title="Delete" onclick="deleteArticle(this)" data-slug="'. $row['slug'] .'" data-lang="'. $row['lang_id'] .'"><i class="fa fa-trash-o"></i></button>';
 
                     $wrapper = '<div class="d-flex gap-2">' . $editButton . $showButton . $deleteButton . '</div>';
 
@@ -70,7 +74,9 @@ class ArticleController extends Controller
         $status = $response->getData('data')['status'];
 
         if ($status == 'success') {
-            Artisan::call('app:generate-sitemap');
+            $request->lang_id == '2'
+                ? Artisan::call('app:generate-sitemap-en')
+                : Artisan::call('app:generate-sitemap');
         }
 
         return $response;
@@ -83,13 +89,17 @@ class ArticleController extends Controller
 
     public function create() {
         $getCategories = $this->categoryService->getListCategories();
+        $getLanguages = $this->languageService->getLanguages();
         $decodedResponseCategories = $this->decodeJsonResponse($getCategories);
+        $decodedResponseLanguages = $this->decodeJsonResponse($getLanguages);
         $categories = $decodedResponseCategories['data']['categories'];
+        $languages = $decodedResponseLanguages['data']['languages'];
 
         return view('dashboard.articles.create', [
             'title' => 'Tambah Artikel Baru',
             'data' => [
-                'categories' => $categories
+                'categories' => $categories,
+                'languages' => $languages
             ]
         ]);
     }
@@ -121,6 +131,7 @@ class ArticleController extends Controller
             'title' => $request->title,
             'slug' => $request->slug,
             'category_id' => $request->category_id,
+            'lang_id' => $request->lang_id,
             'is_draft' => $request->is_draft,
             'excerpt' => $request->excerpt,
             'body' => $request->body
@@ -130,7 +141,9 @@ class ArticleController extends Controller
         $status = $response->getData('data')['status'];
 
         if ($status == 'success') {
-            Artisan::call('app:generate-sitemap');
+            $request->lang_id == '2'
+                ? Artisan::call('app:generate-sitemap-en')
+                : Artisan::call('app:generate-sitemap');
         }
 
         return $response;
@@ -141,14 +154,18 @@ class ArticleController extends Controller
         $decodedResponse = $this->decodeJsonResponse($response);
 
         $getCategories = $this->categoryService->getListCategories();
+        $getLanguages = $this->languageService->getLanguages();
+        $decodedResponseLanguages = $this->decodeJsonResponse($getLanguages);
         $decodedResponseCategories = $this->decodeJsonResponse($getCategories);
         $categories = $decodedResponseCategories['data']['categories'];
+        $languages = $decodedResponseLanguages['data']['languages'];
 
         return view('dashboard.articles.edit', [
             'title' => 'Edit Artikel',
             'data' => [
                 'article' => $decodedResponse['data'],
-                'categories' => $categories
+                'categories' => $categories,
+                'languages' => $languages
             ]
         ]);
     }
@@ -157,6 +174,7 @@ class ArticleController extends Controller
         $payload = [
             'title' => $request->title,
             'category_id' => $request->category_id,
+            'lang_id' => $request->lang_id,
             'is_draft' => $request->is_draft,
             'excerpt' => $request->excerpt,
             'body' => $request->body
@@ -166,7 +184,9 @@ class ArticleController extends Controller
         $status = $response->getData('data')['status'];
 
         if ($status == 'success') {
-            Artisan::call('app:generate-sitemap');
+            $request->lang_id == '2'
+                ? Artisan::call('app:generate-sitemap-en')
+                : Artisan::call('app:generate-sitemap');
         }
 
         return $response;

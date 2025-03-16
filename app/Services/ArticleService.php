@@ -125,7 +125,7 @@ class ArticleService extends MyWebService {
      *
      * @return mixed
      */
-    public function getSlugs() {
-        return $this->get('/slugs');
+    public function getSlugs(string $lang = 'id') {
+        return $this->get('/slugs?lang=' . $lang );
     }
 }

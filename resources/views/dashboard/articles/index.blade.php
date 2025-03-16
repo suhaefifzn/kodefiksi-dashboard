@@ -170,7 +170,7 @@
         });
 
         const deleteArticle = (element) => {
-            const { slug } = element.dataset;
+            const { slug, lang } = element.dataset;
 
             alertConfirm('warning', 'Are you sure? You won\'t be able to revert this!')
                 .then((results) => {
@@ -180,13 +180,15 @@
                             type: 'DELETE',
                             data: {
                                 '_token': @json(csrf_token()),
-                                'slug': slug
+                                'slug': slug,
+                                'lang_id': lang
                             },
                             success: (response, status, xhr) => {
                                 toast('success', 'Article has been deleted!', 2000);
                                 table.ajax.reload(null, false);
                             },
                             error: (xhr, status) => {
+                                console.log(xhr);
                                 if (xhr.status < 500) {
                                     return toast('warning', xhr.responseJSON.message);
                                 }
