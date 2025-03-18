@@ -33,8 +33,8 @@ class GenerateSitemapEN extends Command
         try {
             $sitemap = Sitemap::create();
             $url = config('app.env') === 'production'
-                ? 'https://kodefiksi.com/'
-                : 'http://public.kodefiksi.test/';
+                ? 'https://www.nerdcounter.com/'
+                : 'http://localhost:5173/';
 
             // articles from API
             $articleService = new ArticleService();
