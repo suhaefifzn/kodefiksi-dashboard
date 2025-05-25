@@ -74,9 +74,7 @@ class ArticleController extends Controller
         $status = $response->getData('data')['status'];
 
         if ($status == 'success') {
-            $request->lang_id == '2'
-                ? Artisan::call('app:generate-sitemap-en')
-                : Artisan::call('app:generate-sitemap');
+            Artisan::call('app:generate-sitemap');
         }
 
         return $response;
@@ -90,16 +88,20 @@ class ArticleController extends Controller
     public function create() {
         $getCategories = $this->categoryService->getListCategories();
         $getLanguages = $this->languageService->getLanguages();
+        $getTypes = $this->articleService->getTypes();
         $decodedResponseCategories = $this->decodeJsonResponse($getCategories);
         $decodedResponseLanguages = $this->decodeJsonResponse($getLanguages);
+        $decodedResponseTypes = $this->decodeJsonResponse($getTypes);
         $categories = $decodedResponseCategories['data']['categories'];
         $languages = $decodedResponseLanguages['data']['languages'];
+        $types = $decodedResponseTypes['data']['article_types'];
 
         return view('dashboard.articles.create', [
             'title' => 'Tambah Artikel Baru',
             'data' => [
                 'categories' => $categories,
-                'languages' => $languages
+                'languages' => $languages,
+                'types' => $types
             ]
         ]);
     }
@@ -131,8 +133,10 @@ class ArticleController extends Controller
             'title' => $request->title,
             'slug' => $request->slug,
             'category_id' => $request->category_id,
+            'article_type_id' => $request->article_type_id,
             'lang_id' => $request->lang_id,
             'is_draft' => $request->is_draft,
+            'keyword' => $request->keyword,
             'excerpt' => $request->excerpt,
             'body' => $request->body
         ];
@@ -141,9 +145,7 @@ class ArticleController extends Controller
         $status = $response->getData('data')['status'];
 
         if ($status == 'success') {
-            $request->lang_id == '2'
-                ? Artisan::call('app:generate-sitemap-en')
-                : Artisan::call('app:generate-sitemap');
+            Artisan::call('app:generate-sitemap');
         }
 
         return $response;
@@ -155,17 +157,21 @@ class ArticleController extends Controller
 
         $getCategories = $this->categoryService->getListCategories();
         $getLanguages = $this->languageService->getLanguages();
+        $getTypes = $this->articleService->getTypes();
         $decodedResponseLanguages = $this->decodeJsonResponse($getLanguages);
         $decodedResponseCategories = $this->decodeJsonResponse($getCategories);
+        $decodedResponseTypes = $this->decodeJsonResponse($getTypes);
         $categories = $decodedResponseCategories['data']['categories'];
         $languages = $decodedResponseLanguages['data']['languages'];
+        $types = $decodedResponseTypes['data']['article_types'];
 
         return view('dashboard.articles.edit', [
             'title' => 'Edit Artikel',
             'data' => [
                 'article' => $decodedResponse['data'],
                 'categories' => $categories,
-                'languages' => $languages
+                'languages' => $languages,
+                'types' => $types
             ]
         ]);
     }
@@ -174,8 +180,10 @@ class ArticleController extends Controller
         $payload = [
             'title' => $request->title,
             'category_id' => $request->category_id,
+            'article_type_id' => $request->article_type_id,
             'lang_id' => $request->lang_id,
             'is_draft' => $request->is_draft,
+            'keyword' => $request->keyword,
             'excerpt' => $request->excerpt,
             'body' => $request->body
         ];
@@ -184,9 +192,7 @@ class ArticleController extends Controller
         $status = $response->getData('data')['status'];
 
         if ($status == 'success') {
-            $request->lang_id == '2'
-                ? Artisan::call('app:generate-sitemap-en')
-                : Artisan::call('app:generate-sitemap');
+            Artisan::call('app:generate-sitemap');
         }
 
         return $response;

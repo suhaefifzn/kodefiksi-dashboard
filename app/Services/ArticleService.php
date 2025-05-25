@@ -128,4 +128,8 @@ class ArticleService extends MyWebService {
     public function getSlugs(string $lang = 'id') {
         return $this->get('/slugs?lang=' . $lang );
     }
+
+    public function getTypes() {
+        return $this->get('/types');
+    }
 }

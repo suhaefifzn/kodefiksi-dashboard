@@ -24,10 +24,10 @@
 <div class="content-wrapper">
     <div class="row">
         <div class="home-tab">
-            <div class="d-flex row align-items-center justify-content-around border-bottom border-top pt-3">
+            <div class="d-flex border-top pt-3" style="max-height: 145px">
                 <div class="col-sm-12 col-md-6 col-lg-6 statistics-details d-flex justify-content-around">
-                    <div class="card">
-                        <div class="card-body d-flex flex-column justify-content-between">
+                    <div class="card" style="height: 100%">
+                        <div class="card-body d-flex flex-column">
                             <p class="statistics-title card-title">Artikel Anime</p>
                             <div class="media-wrapper d-flex align-items-center">
                                 <div class="media">
@@ -39,8 +39,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-body d-flex flex-column justify-content-between">
+                    <div class="card" style="height: 100%">
+                        <div class="card-body d-flex flex-column">
                             <p class="statistics-title card-title">Artikel Game</p>
                             <div class="media-wrapper d-flex align-items-center">
                                 <div class="media">
@@ -52,23 +52,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-body d-flex flex-column justify-content-between">
-                            <p class="statistics-title card-title">Artikel Pemrograman</p>
-                            <div class="media-wrapper d-flex align-items-center">
-                                <div class="media">
-                                    <i class="ti-shortcode icon-md d-flex align-self-start me-2"></i>
-                                </div>
-                                <div class="media-body">
-                                    <p class="rate-percentage fs-3">{{ $data['stats'][2]['articles_count'] }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 {{-- Artikel Terakhir --}}
-                <div class="col-sm-12 col-md-6 col-lg-6 statistics-details d-flex flex-column pt-4">
+                <div class="col-sm-12 col-md-6 col-lg-6 statistics-details d-flex flex-column" style="height: 100%">
                     <div class="row flex-grow">
                         <div class="col-12 grid-margin stretch-card">
                             <div class="card card-rounded">

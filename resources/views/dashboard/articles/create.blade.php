@@ -1,4 +1,4 @@
-@extends('dashboard.main', [ 'title' => $title ])
+@extends('dashboard.main', ['title' => $title])
 @section('style')
     <link rel="stylesheet" href="/assets/vendors/ckeditor5/ckeditor5.css">
     <link rel="stylesheet" href="/assets/vendors/ckeditor5/ckeditor5-content.css">
@@ -19,141 +19,173 @@
     </style>
 @endsection
 @section('content')
-<div class="content-wrapper">
-    <div class="row">
-        <div class="col-md-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <div class="card-title">{{ $title }}</div>
-                    <hr>
-                    <form action="POST" id="addArticleForm">
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="title" placeholder="Judul Artikel" autocomplete="off" required>
-                            <label for="title">Judul</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="slug" placeholder="Judul Artikel" autocomplete="off" required>
-                            <label for="slug">Slug</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <select class="form-select" id="category" required>
-                              <option selected disabled>Klik untuk memilih kategori</option>
-                              @foreach ($data['categories'] as $category)
-                                  <option value="{{ $category['id'] }}">{{ $category['name'] }}</option>
-                              @endforeach
-                            </select>
-                            <label for="category">Kategori</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <select class="form-select" id="language" required>
-                              <option selected disabled>Klik memilih bahasa</option>
-                              @foreach ($data['languages'] as $language)
-                                  <option value="{{ $language['id'] }}">{{ $language['name'] }}</option>
-                              @endforeach
-                            </select>
-                            <label for="languages">Bahasa</label>
-                        </div>
-                        <div class="mb-3">
-                            <label for="thumbnail" class="form-label">Thumbnail</label>
-                            <input class="form-control" type="file" accept=".png,.jpg,.webp" id="thumbnail" autocomplete="off">
-                            <div id="previewThumbnailWrapper" style="width: 100%; max-height: 1080px" class="border border-primary rounded border-opacity-25 overflow-hidden text-center my-3 d-none">
-                                <img src="#" alt="Preview Thumbnail" class="img-fluid" id="previewThumbnail" style="height: 100%;">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title">{{ $title }}</div>
+                        <hr>
+                        <form action="POST" id="addArticleForm" class="col-12 col-xxl-8">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="title" placeholder="Judul artikel"
+                                    autocomplete="off" required>
+                                <label for="title">Judul</label>
                             </div>
-                        </div>
-                        <div class="mb-3">
-                            <button class="btn btn-dark" id="sisipkanGambarModalButton">
-                                Sisipkan Gambar Lainnya
-                            </button>
-                        </div>
-                        <div class="form-floating mb-3 col-12 col-xl-8">
-                            <textarea name="excerpt" class="form-control" style="height: 100px" id="excerpt" required autocomplete="off"></textarea>
-                            <label for="excerpt">Deskripsi (min-max: 140-200 characters)</label>
-                        </div>
-                        <div class="mb-3 col-12 col-xxl-8">
-                            <textarea name="body" id="body"></textarea>
-                            <div id="wordCount"></div>
-                        </div>
-                        <div class="mb-3 col-12 col-xxl-8 d-flex justify-content-end gap-2">
-                            <button class="btn btn-primary" type="button" data-draft="false" onclick="addArticle(this)">
-                                Publish
-                            </button>
-                            <button class="btn btn-warning" type="button" data-draft="true" onclick="addArticle(this)">
-                                Draft
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="slug" placeholder="Slug artikel)"
+                                    autocomplete="off" required>
+                                <label for="slug">Slug</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="keyword" placeholder="Kata kunci artikel"
+                                    autocomplete="off" required>
+                                <label for="keyword">Keyword</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <select class="form-select" id="type" required>
+                                    <option selected disabled>Klik untuk memilih tipe artikel</option>
+                                    @foreach ($data['types'] as $type)
+                                        <option value="{{ $type['id'] }}">{{ $type['name'] }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="type">Tipe</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <select class="form-select" id="category" required>
+                                    <option selected disabled>Klik untuk memilih kategori</option>
+                                    @foreach ($data['categories'] as $category)
+                                        <option value="{{ $category['id'] }}">{{ $category['name'] }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="category">Category</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="hidden" id="language" value="1">
+                                <select class="form-select muted" disabled required>
+                                    @foreach ($data['languages'] as $language)
+                                        <option value="{{ $language['id'] }}" {{ $language['id'] == 1 ? 'selected' : '' }}>
+                                            {{ $language['name'] }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="languages">Bahasa</label>
+                            </div>
+                            <div class="mb-3">
+                                <label for="thumbnail" class="form-label">Thumbnail</label>
+                                <input class="form-control" type="file" accept=".png,.jpg,.webp" id="thumbnail"
+                                    autocomplete="off">
+                                <div id="previewThumbnailWrapper" style="width: 100%; max-height: 1080px"
+                                    class="border border-primary rounded border-opacity-25 overflow-hidden text-center my-3 d-none">
+                                    <img src="#" alt="Preview Thumbnail" class="img-fluid" id="previewThumbnail"
+                                        style="height: 100%;">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <button class="btn btn-dark" id="sisipkanGambarModalButton">
+                                    Sisipkan Gambar Lainnya
+                                </button>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <textarea name="excerpt" id="excerpt" class="form-control" style="height: 100px" required autocomplete="off"
+                                    maxlength="160"></textarea>
+                                <label for="excerpt">Deskripsi (120 – 160 karakter)</label>
+
+                                <div class="d-flex justify-content-between mt-1">
+                                    <small id="char-count" class="text-muted">0/160</small>
+                                    <small id="excerpt-feedback" class="text-danger d-none"></small>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <textarea name="body" id="body"></textarea>
+                                <div id="wordCount"></div>
+                            </div>
+                            <div class="mb-3 d-flex justify-content-end gap-2">
+                                <button class="btn btn-primary" type="button" data-draft="false"
+                                    onclick="addArticle(this)">
+                                    Publish
+                                </button>
+                                <button class="btn btn-warning" type="button" data-draft="true" onclick="addArticle(this)">
+                                    Draft
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Modal Sisipkan Gambar Lainnya --}}
+    <div class="modal fade" id="sisipkanGambarModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="sisipkanGambarModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="sisipkanGambarModalLabel">Sisipkan Gambar Lainnya</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('articles.body.images.add') }}" method="POST" enctype="multipart/form-data"
+                        id="addBodyImageForm">
+                        <div class="input-group">
+                            <input type="file" accept=".png,.jpg,.webp" class="form-control"
+                                id="uploadBodyImageInput" aria-describedby="uploadBodyImageButton" aria-label="Upload"
+                                autocomplete="off">
+                            <button class="btn btn-primary border-0" id="uploadBodyImageButton" title="Upload Image">
+                                <i class="fa fa-upload"></i>
                             </button>
                         </div>
                     </form>
+                    <hr>
+                    <table class="table table-hover mt-5" id="bodyImagesTable">
+                        <thead>
+                            <tr>
+                                <th class="text-center">No.</th>
+                                <th>Path</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Kembali</button>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-{{-- Modal Sisipkan Gambar Lainnya --}}
-<div class="modal fade" id="sisipkanGambarModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="sisipkanGambarModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="sisipkanGambarModalLabel">Sisipkan Gambar Lainnya</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ route('articles.body.images.add') }}" method="POST" enctype="multipart/form-data" id="addBodyImageForm">
-                    <div class="input-group">
-                        <input type="file" accept=".png,.jpg,.webp" class="form-control" id="uploadBodyImageInput" aria-describedby="uploadBodyImageButton" aria-label="Upload" autocomplete="off">
-                        <button class="btn btn-primary border-0" id="uploadBodyImageButton" title="Upload Image">
-                            <i class="fa fa-upload"></i>
-                        </button>
+    {{-- Modal Detail Gambar --}}
+    <div class="modal fade" id="detailGambarModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="detailGambarModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="detailGambarModalLabel">Detail Gambar</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="imageWrapper2" class="width: 100%; position: relative">
+                        <img class="img-fluid" style="width: 100%; object-fit: cover; object-position: center">
                     </div>
-                </form>
-                <hr>
-                <table class="table table-hover mt-5" id="bodyImagesTable">
-                    <thead>
-                        <tr>
-                            <th class="text-center">No.</th>
-                            <th>Path</th>
-                            <th class="text-center">Action</th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Kembali</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-{{-- Modal Detail Gambar --}}
-<div class="modal fade" id="detailGambarModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="detailGambarModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="detailGambarModalLabel">Detail Gambar</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div id="imageWrapper2" class="width: 100%; position: relative">
-                    <img class="img-fluid" style="width: 100%; object-fit: cover; object-position: center">
-                </div>
-                <div id="pathWrapper" class="my-3">
-                    <div class="input-group">
-                        <input type="text" class="form-control form-control-sm text-muted" id="imgUrlInput" readonly>
-                        <button class="btn btn-sm btn-dark border-0" type="button" id="copyImgUrlButton">
-                            <i class="fa fa-copy"></i>
-                        </button>
+                    <div id="pathWrapper" class="my-3">
+                        <div class="input-group">
+                            <input type="text" class="form-control form-control-sm text-muted" id="imgUrlInput"
+                                readonly>
+                            <button class="btn btn-sm btn-dark border-0" type="button" id="copyImgUrlButton">
+                                <i class="fa fa-copy"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Kembali</button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Kembali</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
 @endsection
 @section('scripts')
-<script type="importmap">
+    <script type="importmap">
     {
         "imports": {
             "ckeditor5": "/assets/vendors/ckeditor5/ckeditor5.js",
@@ -162,186 +194,313 @@
     }
 </script>
 
-<script>
-    let ckEditor = null;
-</script>
+    <script>
+        let ckEditor = null;
+    </script>
 
-<script type="module">
-    import {
-        ClassicEditor,
-        GeneralHtmlSupport,
-        AccessibilityHelp,
-        Bold,
-        Essentials,
-        Italic,
-        Mention,
-        Paragraph,
-        SelectAll,
-        Undo,
-        Font,
-        Link,
-        BlockQuote,
-        Alignment,
-        Heading,
-        SourceEditing,
-        Image,
-        ImageInsert,
-        CodeBlock,
-        List,
-        Table,
-        TableToolbar,
-        WordCount
-    } from 'ckeditor5';
+    <script type="module">
+        import {
+            ClassicEditor,
+            GeneralHtmlSupport,
+            AccessibilityHelp,
+            Bold,
+            Essentials,
+            Italic,
+            Mention,
+            Paragraph,
+            SelectAll,
+            Undo,
+            Font,
+            Link,
+            BlockQuote,
+            Alignment,
+            Heading,
+            SourceEditing,
+            Image,
+            ImageInsert,
+            CodeBlock,
+            List,
+            Table,
+            TableToolbar,
+            WordCount
+        } from 'ckeditor5';
 
-    ClassicEditor
-        .create( document.querySelector( '#body' ), {
-            plugins: [
-                GeneralHtmlSupport,
-                AccessibilityHelp,
-                Bold,
-                Essentials,
-                Italic,
-                Mention,
-                Paragraph,
-                SelectAll,
-                Undo,
-                Font,
-                Link,
-                BlockQuote,
-                Alignment,
-                Heading,
-                SourceEditing,
-                Image,
-                ImageInsert,
-                CodeBlock,
-                List,
-                Table,
-                TableToolbar,
-                WordCount
-            ],
-            toolbar: [
-                'undo', 'redo',
-                '|', 'sourceEditing', 'heading', 'alignment', 'bulletedList', 'numberedList',
-                '|', 'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor',
-                '|', 'bold', 'italic', 'link', 'blockquote',
-                '|', 'insertImageViaUrl', 'codeBlock', 'insertTable',
-            ],
-            htmlSupport: {
-                allow: [
-                    {
+        ClassicEditor
+            .create(document.querySelector('#body'), {
+                plugins: [
+                    GeneralHtmlSupport,
+                    AccessibilityHelp,
+                    Bold,
+                    Essentials,
+                    Italic,
+                    Mention,
+                    Paragraph,
+                    SelectAll,
+                    Undo,
+                    Font,
+                    Link,
+                    BlockQuote,
+                    Alignment,
+                    Heading,
+                    SourceEditing,
+                    Image,
+                    ImageInsert,
+                    CodeBlock,
+                    List,
+                    Table,
+                    TableToolbar,
+                    WordCount
+                ],
+                toolbar: [
+                    'undo', 'redo',
+                    '|', 'sourceEditing', 'heading', 'alignment', 'bulletedList', 'numberedList',
+                    '|', 'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor',
+                    '|', 'bold', 'italic', 'link', 'blockquote',
+                    '|', 'insertImageViaUrl', 'codeBlock', 'insertTable',
+                ],
+                htmlSupport: {
+                    allow: [{
                         name: /.*/,
                         attributes: true,
                         classes: true,
                         styles: true
-                    }
-                ]
-            },
-            table: {
-                contentToolbar: [ 'tableColumn', 'tableRow', 'mergeTableCells' ]
-            }
-        }).then((editor) => {
-            const wordCountPlugin = editor.plugins.get( 'WordCount' );
-            const wordCountWrapper = document.getElementById( 'wordCount');
-            wordCountWrapper.appendChild( wordCountPlugin.wordCountContainer );
-            ckEditor = editor;
-        });
-</script>
-
-<script>
-    $(document).ready(() => {
-        // reset datatable body images
-        let table = null;
-
-        $('#sisipkanGambarModal').on('hidden.bs.modal', function () {
-            if ($.fn.DataTable.isDataTable('#bodyImagesTable')) {
-                $('#bodyImagesTable').DataTable().destroy();
-            }
-        });
-
-        const menuArtikel = $('a[href="#type"]')[0];
-        $(menuArtikel.parentElement).addClass('active');
-
-        $('#thumbnail').on('change', (e1) => {
-            const file = e1.currentTarget.files[0];
-
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (e2) => {
-                    $('#previewThumbnail').attr('src', event.target.result);
-                    $('#previewThumbnailWrapper').removeClass('d-none');
-                }
-                reader.readAsDataURL(file);
-            }
-        });
-
-        // open modal sisipkan gambar
-        $('#sisipkanGambarModalButton').on('click', (e) => {
-            e.preventDefault();
-            table = $('#bodyImagesTable').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: @json(route('articles.body.images.table')),
-                    type: 'GET',
-                    data: (val) => {
-                        // console.log(val);
-                    },
-                    dataSrc: (json) => {
-                        // console.log('Data received from server:', json);
-                        return json.data;
-                    }
+                    }]
                 },
-                columns: [
-                    {
-                        data: null,
-                        name: 'no.',
-                        className: 'text-center',
-                        render: (data, type, row, meta) => {
-                            return meta.row + meta.settings._iDisplayStart + 1 + '.';
-                        },
-                        searchable: false
-                    },
-                    {
-                        data: 'path',
-                        name: 'path'
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        class: 'text-center',
-                        orderable: false,
-                        searchable: false
-                    }
-                ]
+                table: {
+                    contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
+                }
+            }).then((editor) => {
+                const wordCountPlugin = editor.plugins.get('WordCount');
+                const wordCountWrapper = document.getElementById('wordCount');
+                wordCountWrapper.appendChild(wordCountPlugin.wordCountContainer);
+                ckEditor = editor;
+            });
+    </script>
+
+    <script>
+        $(document).ready(() => {
+            // reset datatable body images
+            let table = null;
+
+            $('#sisipkanGambarModal').on('hidden.bs.modal', function() {
+                if ($.fn.DataTable.isDataTable('#bodyImagesTable')) {
+                    $('#bodyImagesTable').DataTable().destroy();
+                }
             });
 
-            $('#sisipkanGambarModal').modal('show');
+            const menuArtikel = $('a[href="#type"]')[0];
+            $(menuArtikel.parentElement).addClass('active');
+
+            $('#thumbnail').on('change', (e1) => {
+                const file = e1.currentTarget.files[0];
+
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e2) => {
+                        $('#previewThumbnail').attr('src', event.target.result);
+                        $('#previewThumbnailWrapper').removeClass('d-none');
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // open modal sisipkan gambar
+            $('#sisipkanGambarModalButton').on('click', (e) => {
+                e.preventDefault();
+                table = $('#bodyImagesTable').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    ajax: {
+                        url: @json(route('articles.body.images.table')),
+                        type: 'GET',
+                        data: (val) => {
+                            // console.log(val);
+                        },
+                        dataSrc: (json) => {
+                            // console.log('Data received from server:', json);
+                            return json.data;
+                        }
+                    },
+                    columns: [{
+                            data: null,
+                            name: 'no.',
+                            className: 'text-center',
+                            render: (data, type, row, meta) => {
+                                return meta.row + meta.settings._iDisplayStart + 1 + '.';
+                            },
+                            searchable: false
+                        },
+                        {
+                            data: 'path',
+                            name: 'path'
+                        },
+                        {
+                            data: 'action',
+                            name: 'action',
+                            class: 'text-center',
+                            orderable: false,
+                            searchable: false
+                        }
+                    ]
+                });
+
+                $('#sisipkanGambarModal').modal('show');
+            });
+
+            // upload body image
+            $('#addBodyImageForm').on('submit', (e) => {
+                e.preventDefault();
+                const data = {
+                    '_token': @json(csrf_token()),
+                    'image': e.currentTarget[0].files[0],
+                };
+                const formAction = e.currentTarget.action;
+                const formData = new FormData();
+
+                $.each(data, (key, value) => {
+                    formData.append(key, value);
+                });
+
+                $.ajax({
+                    url: formAction,
+                    type: 'POST',
+                    data: formData,
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    success: (response, status, xhr) => {
+                        toast('success', 'Image has been successfully uploaded', 2000);
+                        table.ajax.reload(null, false);
+                    },
+                    error: (xhr, status) => {
+                        console.log(xhr);
+
+                        if (xhr.status <= 404) {
+                            return toast('warning', xhr.responseJSON.message);
+                        }
+
+                        if (xhr.status == 422) {
+                            return toast('warning',
+                                'Ensure the file is an image in .png or .jpg format and is less than 2MB in size'
+                            );
+                        }
+
+                        return toast('error', 'Internal server error');
+                    }
+                });
+            });
+
+            // copy img url button clicked
+            $('#copyImgUrlButton').on('click', (e) => {
+                e.preventDefault();
+                $('#imgUrlInput').select();
+                document.execCommand('copy');
+                toast('success', 'The image URL has been successfully copied');
+            });
+
+            // generate slug from title
+            $('#addArticleForm #title').on('change', (e) => {
+                e.preventDefault();
+                const title = $('#addArticleForm #title').val();
+
+                $.ajax({
+                    url: @json(route('articles.slug.generate')),
+                    type: 'POST',
+                    data: {
+                        title,
+                        _token: @json(csrf_token()),
+                    },
+                    beforeSend: () => {
+                        $('#addArticleForm #slug').val('Loading...').prop('disabled', true);
+                    },
+                    success: (response, status, xhr) => {
+                        $('#addArticleForm #slug').val(response.data.slug).prop('disabled',
+                            false);
+                    },
+                    error: (xhr, status) => {
+                        console.log(xhr);
+                        return toast('error', 'Oops, something gone wrong.', 3000);
+                    }
+                })
+            })
+
+            // count excerpt words
+            const $excerpt = $('#excerpt');
+            const $charCount = $('#char-count');
+            const $feedback = $('#excerpt-feedback');
+            const MIN_LENGTH = 120;
+            const MAX_LENGTH = 160;
+
+            function validateExcerpt() {
+                const len = $excerpt.val().length;
+
+                // Tampilkan hitungan karakter
+                $charCount.text(`${len}/${MAX_LENGTH}`);
+
+                // Validasi panjang
+                if (len < MIN_LENGTH || len > MAX_LENGTH) {
+                    $excerpt.addClass('is-invalid').removeClass('is-valid');
+                    $feedback.text(`Panjang deskripsi: 120–160 karakter (sekarang: ${len})`).removeClass('d-none');
+                } else {
+                    $excerpt.addClass('is-valid').removeClass('is-invalid');
+                    $feedback.addClass('d-none').text('');
+                }
+            }
+
+            // Jalankan saat input & saat halaman dimuat (jika ada nilai lama)
+            $excerpt.on('input', validateExcerpt);
+            validateExcerpt();
         });
 
-        // upload body image
-        $('#addBodyImageForm').on('submit', (e) => {
-            e.preventDefault();
+        const showImage = (element) => {
+            const {
+                path
+            } = element.dataset;
+            const imgUrl = @json(config('app.my_config.api_url')) + '/' + path;
+
+            $('#imgUrlInput').val(imgUrl);
+            $('#imageWrapper2 img').attr('src', imgUrl).attr('loading', 'lazy');
+            $('#detailGambarModal').modal('show');
+        };
+
+        const addArticle = (element) => {
+            const {
+                draft
+            } = element.dataset;
+            const bodyContent = ckEditor.getData();
+
             const data = {
                 '_token': @json(csrf_token()),
-                'image': e.currentTarget[0].files[0],
+                'title': $('#addArticleForm #title').val(),
+                'slug': $('#addArticleForm #slug').val(),
+                'category_id': $('#addArticleForm #category').find(':selected').val(),
+                'article_type_id': $('#addArticleForm #type').find(':selected').val(),
+                'lang_id': $('#addArticleForm #language').val(),
+                'img_thumbnail': $('#addArticleForm #thumbnail')[0].files[0],
+                'is_draft': draft,
+                'keyword': $('#addArticleForm #keyword').val(),
+                'excerpt': $('#addArticleForm #excerpt').val(),
+                'body': bodyContent
             };
-            const formAction = e.currentTarget.action;
             const formData = new FormData();
 
-            $.each(data, (key, value) => {
-                formData.append(key, value);
+            $.each(data, (key, val) => {
+                formData.append(key, val);
             });
 
             $.ajax({
-                url: formAction,
+                url: @json(route('articles.add')),
                 type: 'POST',
                 data: formData,
                 cache: false,
-                processData:false,
+                processData: false,
                 contentType: false,
                 success: (response, status, xhr) => {
-                    toast('success', 'Image has been successfully uploaded', 2000);
-                    table.ajax.reload(null, false);
+                    console.log(response);
+                    return toast('success', response.message, 2000)
+                        .then(() => {
+                            location.href = @json(route('articles.index')) + '?is_draft=' + draft;
+                        });
                 },
                 error: (xhr, status) => {
                     console.log(xhr);
@@ -351,106 +510,14 @@
                     }
 
                     if (xhr.status == 422) {
-                        return toast('warning', 'Ensure the file is an image in .png or .jpg format and is less than 2MB in size');
+                        return toast('warning',
+                            'Ensure the file is an image in .png or .jpg format and is less than 2MB in size'
+                        );
                     }
 
                     return toast('error', 'Internal server error');
                 }
             });
-        });
-
-        // copy img url button clicked
-        $('#copyImgUrlButton').on('click', (e) => {
-            e.preventDefault();
-            $('#imgUrlInput').select();
-            document.execCommand('copy');
-            toast('success', 'The image URL has been successfully copied');
-        });
-
-        // generate slug from title
-        $('#addArticleForm #title').on('change', (e) => {
-            e.preventDefault();
-            const title = $('#addArticleForm #title').val();
-
-            $.ajax({
-                url: @json(route('articles.slug.generate')),
-                type: 'POST',
-                data: {
-                    title,
-                    _token: @json(csrf_token()),
-                },
-                beforeSend: () => {
-                    $('#addArticleForm #slug').val('Loading...').prop('disabled', true);
-                },
-                success: (response, status, xhr) => {
-                    $('#addArticleForm #slug').val(response.data.slug).prop('disabled', false);
-                },
-                error: (xhr, status) => {
-                    console.log(xhr);
-                    return toast('error', 'Oops, something gone wrong.', 3000);
-                }
-            })
-        })
-    });
-
-    const showImage = (element) => {
-        const { path } = element.dataset;
-        const imgUrl = @json(config('app.my_config.api_url')) + '/' + path;
-
-        $('#imgUrlInput').val(imgUrl);
-        $('#imageWrapper2 img').attr('src', imgUrl).attr('loading', 'lazy');
-        $('#detailGambarModal').modal('show');
-    };
-
-    const addArticle = (element) => {
-        const { draft } = element.dataset;
-        const bodyContent = ckEditor.getData();
-
-        const data = {
-            '_token': @json(csrf_token()),
-            'title': $('#addArticleForm #title').val(),
-            'slug': $('#addArticleForm #slug').val(),
-            'category_id': $('#addArticleForm #category').find(':selected').val(),
-            'lang_id': $('#addArticleForm #language').find(':selected').val(),
-            'img_thumbnail': $('#addArticleForm #thumbnail')[0].files[0],
-            'is_draft': draft,
-            'excerpt': $('#addArticleForm #excerpt').val(),
-            'body': bodyContent
         };
-        const formData = new FormData();
-
-        $.each(data, (key, val) => {
-            formData.append(key, val);
-        });
-
-        $.ajax({
-            url: @json(route('articles.add')),
-            type: 'POST',
-            data: formData,
-            cache: false,
-            processData:false,
-            contentType: false,
-            success: (response, status, xhr) => {
-                console.log(response);
-                return toast('success', response.message, 2000)
-                    .then(() => {
-                        location.href = @json(route('articles.index')) + '?is_draft=' + draft;
-                    });
-            },
-            error: (xhr, status) => {
-                console.log(xhr);
-
-                if (xhr.status <= 404) {
-                    return toast('warning', xhr.responseJSON.message);
-                }
-
-                if (xhr.status == 422) {
-                    return toast('warning', 'Ensure the file is an image in .png or .jpg format and is less than 2MB in size');
-                }
-
-                return toast('error', 'Internal server error');
-            }
-        });
-    };
-</script>
+    </script>
 @endsection
